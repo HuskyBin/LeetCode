@@ -11,9 +11,9 @@ public class Solution {
         
         while (pNode != null) {
                 if (pNode.next != null && (pNode.val == pNode.next.val)) {
-                while (pNode.next != null && pNode.val == pNode.next.val) {
-                    pNode = pNode.next;
-                }
+                    while (pNode.next != null && pNode.val == pNode.next.val) {
+                        pNode = pNode.next;
+                    }
                 pNode = pNode.next;
                 preNode.next = pNode;
             }
