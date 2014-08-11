@@ -3,35 +3,27 @@ public class Solution {
         if (head == null) {
             return head;
         }
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
-        ListNode preNode = dummyNode;
+        ListNode leftDummy = new ListNode(-1);
+        ListNode rightDummy = new ListNode(-1);
+        
+        ListNode left = leftDummy;
+        ListNode right = rightDummy;
         ListNode pNode = head;
-        while (pNode != null && pNode.val < x) {
-            preNode = pNode;
-            pNode = pNode.next;
-        }
-        if (pNode == null) {
-            return head;
-        }
-        ListNode preSmallNode = pNode;
-        ListNode smallNode = pNode.next;
-        while (smallNode != null) {
-            if (smallNode.val < x) {
-                ListNode nextSamllNode = smallNode.next;
-                preSmallNode.next = nextSamllNode;
-                smallNode.next = pNode;
-                preNode.next = smallNode;
-                preNode = smallNode;
-                smallNode = nextSamllNode;
+        
+        while (pNode != null) {
+            if (pNode.val < x) {
+                left.next = pNode;
+                left = pNode;
             }
             else {
-                preSmallNode = smallNode;
-                smallNode = smallNode.next;
+                right.next = pNode;
+                right = pNode;
             }
+            pNode = pNode.next;
         }
-        head = dummyNode.next;
-        dummyNode.next = null;
+        right.next = null;
+        left.next = rightDummy.next;
+        head = leftDummy.next;
         return head;
     }
 }
