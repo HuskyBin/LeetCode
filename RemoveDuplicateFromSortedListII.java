@@ -10,10 +10,10 @@ public class Solution {
         ListNode pNode = head;
         
         while (pNode != null) {
-                if (pNode.next != null && (pNode.val == pNode.next.val)) {
-                    while (pNode.next != null && pNode.val == pNode.next.val) {
-                        pNode = pNode.next;
-                    }
+            if (pNode.next != null && (pNode.val == pNode.next.val)) {
+                while (pNode.next != null && pNode.val == pNode.next.val) {
+                    pNode = pNode.next;
+                }
                 pNode = pNode.next;
                 preNode.next = pNode;
             }
