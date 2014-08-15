@@ -22,6 +22,8 @@ Visually, the graph looks like the following:
          / \
          \_/
 */
+
+//DFS
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null) {
@@ -46,6 +48,44 @@ public class Solution {
             }
         }
         newNode.neighbors = newNeighborNodes;
+        return newNode;
+    }
+}
+
+
+//BFS
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null) {
+            return node;
+        }
+        Map<Integer, UndirectedGraphNode> cloneNodeMap = new HashMap<>();
+        UndirectedGraphNode cloneNode = cloneGraphCore(node, cloneNodeMap);
+        return cloneNode;
+    }
+    
+    public UndirectedGraphNode cloneGraphCore(UndirectedGraphNode node, Map<Integer, UndirectedGraphNode> cloneNodeMap) {
+        UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+        cloneNodeMap.put(node.label, newNode);
+        Queue<UndirectedGraphNode> queueNodes = new LinkedList<>();
+        queueNodes.offer(node);
+        while (queueNodes.size() > 0) {
+            UndirectedGraphNode topNode = queueNodes.poll();
+            UndirectedGraphNode newCloneNode = cloneNodeMap.get(topNode.label);
+            List<UndirectedGraphNode> newNeighborNodes = new ArrayList<>();
+            for (UndirectedGraphNode neighborNode : topNode.neighbors) {
+                if (cloneNodeMap.containsKey(neighborNode.label)) {
+                    newNeighborNodes.add(cloneNodeMap.get(neighborNode.label));
+                }
+                else {
+                    UndirectedGraphNode newNeighborCloneNode = new UndirectedGraphNode(neighborNode.label);
+                    cloneNodeMap.put(neighborNode.label, newNeighborCloneNode);
+                    newNeighborNodes.add(newNeighborCloneNode);
+                    queueNodes.offer(neighborNode);
+                }
+            }
+            newCloneNode.neighbors = newNeighborNodes;
+        }
         return newNode;
     }
 }
