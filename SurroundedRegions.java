@@ -58,22 +58,22 @@ public class Solution {
             if (curRowIndex < board.length - 1 && board[curRowIndex + 1][curColumnIndex] == 'O' && visited[curRowIndex + 1][curColumnIndex] == false) {
                 indexQueue.offer(curRowIndex + 1);
                 indexQueue.offer(curColumnIndex);
-                 visited[curRowIndex + 1][curColumnIndex] = true;
+                visited[curRowIndex + 1][curColumnIndex] = true;
             }
             if (curColumnIndex < board[0].length - 1 && board[curRowIndex][curColumnIndex + 1] == 'O' && visited[curRowIndex][curColumnIndex + 1] == false) {
                 indexQueue.offer(curRowIndex);
                 indexQueue.offer(curColumnIndex + 1);
-                 visited[curRowIndex][curColumnIndex + 1] = true;
+                visited[curRowIndex][curColumnIndex + 1] = true;
             }
             if (curRowIndex > 0 && board[curRowIndex - 1][curColumnIndex] == 'O' && visited[curRowIndex - 1][curColumnIndex] == false) {
                 indexQueue.offer(curRowIndex - 1);
                 indexQueue.offer(curColumnIndex);
-                 visited[curRowIndex - 1][curColumnIndex] = true;
+                visited[curRowIndex - 1][curColumnIndex] = true;
             }
             if (curColumnIndex > 0 && board[curRowIndex][curColumnIndex - 1] == 'O' && visited[curRowIndex][curColumnIndex - 1] == false) {
                 indexQueue.offer(curRowIndex);
                 indexQueue.offer(curColumnIndex - 1);
-                 visited[curRowIndex][curColumnIndex - 1] = true;
+                visited[curRowIndex][curColumnIndex - 1] = true;
             }
         }
         if (valid == true) {
