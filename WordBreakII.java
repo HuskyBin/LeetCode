@@ -1,4 +1,4 @@
-Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
+/*Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
 
 Return all such possible sentences.
 
@@ -7,6 +7,7 @@ s = "catsanddog",
 dict = ["cat", "cats", "and", "sand", "dog"].
 
 A solution is ["cats and dog", "cat sand dog"].
+*/
 
 // Should add a cache to cut all impossbial braches.
 public class Solution {
