@@ -81,7 +81,7 @@ public class Solution {
         
         int[] dp = new int[s.length()];
         for (int i = 0; i < s.length(); i++) {
-        	int min = Integer.MAX_VALUE;
+            int min = Integer.MAX_VALUE;
             for (int j = -1; j < i; j++) {
                 if (isPalindrome[j + 1][i]) {
                     if (j == -1) {
