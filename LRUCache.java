@@ -6,6 +6,8 @@ set(key, value) - Set or insert the value if the key is not already present. Whe
 */
 
 
+// Need to add Two DummyNode into the Double list at the Beginning. In this way we could solve corner cases easily.
+
 public class LRUCache {
     
     private Map<Integer, ListNode> nodeMap = new HashMap<>();
