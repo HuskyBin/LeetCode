@@ -11,6 +11,44 @@ Given n = 3, your program should return all 5 unique BST's shown below.
    2     1         2                 3
 confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on OJ.
 */
+
+//Update more concise code (add a null object into list when start > end), it could make sure the return list can not ne null.
+
+public class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        List<TreeNode> resultList = new ArrayList<>();
+        if (n < 0) {
+            return resultList;
+        }
+        
+        resultList = generateTreesCore(1, n);
+        return resultList;
+    }
+    
+    private List<TreeNode> generateTreesCore(int start, int end) {
+        List<TreeNode> allCandidates = new ArrayList<>();
+        if (start > end) {
+            allCandidates.add(null);
+            return allCandidates;
+        }
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> allLeftNodes = generateTreesCore(start, i - 1);
+            List<TreeNode> allRightNodes = generateTreesCore(i + 1, end);
+            for (TreeNode left : allLeftNodes) {
+                for (TreeNode right : allRightNodes) {
+                    TreeNode newNode = new TreeNode(i);
+                    newNode.left = left;
+                    newNode.right = right;
+                    allCandidates.add(newNode);
+                }
+            }
+        }
+        return allCandidates;
+    }
+}
+
+
+// Older Version
 public class Solution {
     public List<TreeNode> generateTrees(int n) {
         List<TreeNode> resultList = new ArrayList<>();
