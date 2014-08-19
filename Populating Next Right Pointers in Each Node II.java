@@ -21,6 +21,7 @@ After calling your function, the tree should look like:
     4-> 5 -> 7 -> NULL
 */
 //Recursion method
+// Be carefull about we need to process right child before left child
 public class Solution {
     public void connect(TreeLinkNode root) {
         if (root == null) {
