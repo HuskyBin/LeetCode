@@ -28,9 +28,9 @@ public class Solution {
     }
     
     private boolean findTheTarget(int[] num, 
-                               int index, 
-                               int target, 
-                               int firstNum) {
+                                  int index, 
+                                  int target, 
+                                  int firstNum) {
         int startIndex = index;
         int endIndex = num.length - 1;
         while (startIndex < endIndex) {
