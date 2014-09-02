@@ -42,19 +42,19 @@ public class Solution {
     }
     
     
-    private boolean updateRowOrColumn(int[] number, int index, int cellNumber) {
-        if ((number[index] & (1 << cellNumber)) != 0) {
+    private boolean updateRowOrColumn(int[] number, int index, char cellNumber) {
+        if ((number[index] & (1 << Character.getNumericValue(cellNumber))) != 0) {
             return false;
         }
-        number[index] |= (1 << cellNumber);
+        number[index] |= (1 << Character.getNumericValue(cellNumber));
         return true;
     }
     
-    private boolean updateCell(int[][] cell, int cellRow, int cellColumn, int cellNumber) {
-        if ((cell[cellRow][cellColumn] & (1 << cellNumber)) != 0) {
+    private boolean updateCell(int[][] cell, int cellRow, int cellColumn, char cellNumber) {
+        if ((cell[cellRow][cellColumn] & (1 << Character.getNumericValue(cellNumber))) != 0) {
             return false;
         }
-        cell[cellRow][cellColumn] |= (1 << cellNumber);
+        cell[cellRow][cellColumn] |= (1 << Character.getNumericValue(cellNumber));
         return true;
     }
 }
