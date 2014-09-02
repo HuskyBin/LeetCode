@@ -7,7 +7,7 @@ and [3,4,-1,1] return 2.
 
 Your algorithm should run in O(n) time and uses constant space.
 */
-// Be carefull about line 34, you should catche the A[A[index] - 1] first, not the A[index]. It is a little tricky. If not,
+// Be carefull about line 35, you should catche the A[A[index] - 1] first, not the A[index]. It is a little tricky. If not,
 // it will change the A[index] value, then it will affect the A[A[index] - 1] value. 
 public class Solution {
     public int firstMissingPositive(int[] A) {
