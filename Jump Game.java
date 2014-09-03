@@ -37,3 +37,24 @@ public class Solution {
         return true;
     }
 }
+
+
+// Dp solution
+public class Solution {
+    public boolean canJump(int[] A) {
+        if (A == null || A.length == 0) {
+            return true;
+        }
+        boolean[] canJump = new boolean[A.length];
+        canJump[0] = true;
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (canJump[j] == true && j + A[j] >= i) {
+                    canJump[i] = true;
+                    break;
+                }
+            }
+        }
+        return canJump[A.length - 1];
+    }
+}
