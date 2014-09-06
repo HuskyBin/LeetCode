@@ -1,3 +1,75 @@
+// Update 06/09/2014
+public class Solution {
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0 || board[0].length == 0 || word == null || word.length() == 0) {
+            return false;
+        }
+        
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        Map<Character, Boolean> map = new HashMap<>();
+        for (int i = 0; i < word.length(); i++) {
+            char curChar = word.charAt(i);
+            if (!map.containsKey(curChar)) {
+                map.put(curChar, true);
+            }
+        }
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (map.containsKey(board[i][j])) {
+                    boolean result = existCore(board, word, 0, visited, map, i, j);
+                    if (result == true) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    
+    private boolean existCore(char[][] board, 
+                              String word, 
+                              int len, 
+                              boolean[][] visited, 
+                              Map<Character, Boolean> map, 
+                              int row, 
+                              int column) {
+        if (len == word.length()) {
+            return true;
+        }
+        if (row < 0 || row >= board.length || column < 0 || column >= board[0].length) {
+            return false;
+        }
+        if (visited[row][column] == true) {
+            return false;
+        }
+        visited[row][column] = true;
+        if (board[row][column] == word.charAt(len)) {
+            boolean subResult = existCore(board, word, len + 1, visited, map, row + 1, column);
+            if (subResult == true) {
+                return true;
+            }
+            subResult = existCore(board, word, len + 1, visited, map, row - 1, column);
+            if (subResult == true) {
+                return true;
+            }
+            subResult = existCore(board, word, len + 1, visited, map, row, column + 1);
+            if (subResult == true) {
+                return true;
+            }
+            subResult = existCore(board, word, len + 1, visited, map, row, column - 1);
+            if (subResult == true) {
+                return true;
+            }
+        }
+        visited[row][column] = false;
+        return false;
+    }
+}
+
+
+
+
 public class WordSearch {
     public boolean exist(char[][] board, String word) {
         if (board == null || board.length == 0 || board[0].length == 0) {
