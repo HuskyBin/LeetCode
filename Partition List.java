@@ -1,3 +1,4 @@
+// 用双dummyNode来把不同的点穿起来
 public class Solution {
     public ListNode partition(ListNode head, int x) {
         if (head == null) {
