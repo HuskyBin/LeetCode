@@ -69,7 +69,7 @@ public class Solution {
 
 
 
-
+// old version
 public class WordSearch {
     public boolean exist(char[][] board, String word) {
         if (board == null || board.length == 0 || board[0].length == 0) {
