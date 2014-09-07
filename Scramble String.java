@@ -43,3 +43,44 @@ public class Solution {
         return String.valueOf(strArr);
     }
 }
+
+
+
+// version 2 using a Map to cache results
+public class Solution {
+    
+    public boolean isScramble(String s1, String s2) {
+        if (s1 == null || s2 == null || s1.length() != s2.length()) {
+            return false;
+        }   
+        
+        Map<String, Boolean> map = new HashMap<>();
+        boolean result = isScrambleCore(s1, s2, map);
+        return result;
+    }
+
+    private boolean isScrambleCore(String s1, String s2, Map<String, Boolean> map) {
+        if (s1.length() == 1 && s2.length() == 1 && !s1.equals(s2)) {
+            return false;
+        }
+        if (map.containsKey(s1 + "," + s2)) {
+            return map.get(s1 + "," + s2);
+        }
+        if (s1.equals(s2)) {
+            return true;
+        }
+
+        for (int i = 0; i < s1.length() - 1; i++) {
+            boolean subResult = (isScrambleCore(s1.substring(0, i + 1), s2.substring(0, i + 1), map) && 
+                                isScrambleCore(s1.substring(i + 1, s1.length()), s2.substring(i + 1, s2.length()), map)) ||
+                                (isScrambleCore(s1.substring(0, i + 1), s2.substring(s2.length() - i - 1, s2.length()), map) &&
+                                isScrambleCore(s1.substring(i + 1, s1.length()), s2.substring(0, s2.length() - i - 1), map));
+            if (subResult == true) {
+                map.put(s1 + "," + s2, true);
+                return true;
+            }
+        }
+        map.put(s1 + "," + s2, false);
+        return false;
+    }
+}
