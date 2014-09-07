@@ -44,3 +44,50 @@ public class Solution {
         return false;
     }
 }
+
+
+// Update 07/09/2014
+public class Solution {
+    public int numDecodings(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        
+        int[] dp = new int[s.length()];
+        int result = numDecodingCore(s, 0, dp);
+        return result;
+    }
+    
+    private int numDecodingCore(String s, int index, int[] dp) {
+        if (index >= s.length()) {
+            return 1;
+        }
+        if (s.charAt(index) == '0') {
+            return 0;
+        }
+        if (dp[index] > 0) {
+            return dp[index];
+        }
+        int result = numDecodingCore(s, index + 1, dp);
+        if (isVlaidForTwoDigit(s, index)) {
+            result += numDecodingCore(s, index + 2, dp);
+        }
+        dp[index] = result;
+        return result;
+    }
+    
+    private boolean isVlaidForTwoDigit(String s, int index) {
+        char curChar = s.charAt(index);
+        if (index == s.length() - 1) {
+            return false;
+        }
+        char nextChar = s.charAt(index + 1);
+        StringBuilder sb = new StringBuilder();
+        sb.append(curChar);
+        sb.append(nextChar);
+        if (sb.toString().compareTo("26") <= 0) {
+            return true;
+        }
+        return false;
+    }
+}
