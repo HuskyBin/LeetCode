@@ -40,9 +40,6 @@ public class Solution {
                 sb.append(s.substring(index, i));
                 sb.append(' ');
                 subResult |= wordBreakCore(s, dict, sb, i, resultList, dp);
-                if (subResult == false) {
-                    dp[i] = -1;
-                }
                 sb.setLength(sb.length() - (i - index) - 1);
             }
         }
