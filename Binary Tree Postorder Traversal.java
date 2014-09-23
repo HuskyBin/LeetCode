@@ -56,3 +56,31 @@ public class Solution {
         return resultList;
     }
 }
+
+
+// Two Stack Solution
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> resultList = new ArrayList<>();
+        if (root == null) {
+            return resultList;
+        }
+        Stack<TreeNode> stackOne = new Stack<>();
+        Stack<TreeNode> stackTwo = new Stack<>();
+        stackOne.push(root);
+        while (stackOne.size() > 0) {
+            TreeNode pNode = stackOne.pop();
+            stackTwo.push(pNode);
+            if (pNode.left != null) {
+                stackOne.push(pNode.left);
+            }
+            if (pNode.right != null) {
+                stackOne.push(pNode.right);
+            }
+        }
+        while (stackTwo.size() > 0) {
+            resultList.add(stackTwo.pop().val);
+        }
+        return resultList;
+    }
+}
