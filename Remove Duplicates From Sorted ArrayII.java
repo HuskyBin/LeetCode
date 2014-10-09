@@ -57,3 +57,40 @@ public class Solution {
         return newIndex;
     }
 }
+
+
+// Solution 3 use two variable to store the last one and last two number;
+public class Solution {
+    public int removeDuplicates(int[] A) {
+        if (A == null || A.length == 0) {
+            return 0;
+        }
+        if (A.length < 2) {
+            return A.length;
+        }
+        int index = 2;
+        int i = 2;
+        int lastOne = A[1];
+        int lastTwo = A[0];
+        while (i < A.length) {
+            if (A[i] != lastOne) {
+                lastTwo = lastOne;
+                lastOne = A[i];
+                A[index] = A[i];
+                index++;
+            }
+            else if (A[i] != lastTwo) {
+                lastTwo = lastOne;
+                lastOne = A[i];
+                A[index] = A[i];
+                index++;
+            }
+            else {
+                lastTwo = lastOne;
+                lastOne = A[i];
+            }
+            i++;
+        }
+        return index;
+    }
+}
