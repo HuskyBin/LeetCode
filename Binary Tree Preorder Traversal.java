@@ -34,3 +34,32 @@ public class Solution {
         return resultList;
     }
 }
+
+
+//Another Solution 
+public class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: Preorder in ArrayList which contains node values.
+     */
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
+        // write your code here
+        ArrayList<Integer> resultList = new ArrayList<>();
+        if (root == null) {
+            return resultList;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode topNode = stack.pop();
+            resultList.add(topNode.val);
+            if (topNode.right != null) {
+                stack.push(topNode.right);
+            }
+            if (topNode.left != null) {
+                stack.push(topNode.left);
+            }
+        }
+        return resultList;
+    }
+}
