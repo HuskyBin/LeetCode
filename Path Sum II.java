@@ -42,3 +42,55 @@ public class Solution {
         singleList.remove(singleList.size() - 1); 
     }
 }
+
+
+
+// No-recursion Version
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> resultList = new ArrayList<>();
+        if (root == null) {
+            return resultList;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<List<Integer>> path = new Stack<>();
+        stack.push(root);
+        List<Integer> listRoot = new ArrayList<>();
+        listRoot.add(root.val);
+        path.push(listRoot);
+        Stack<Integer> sumStack = new Stack<>();
+        sumStack.push(sum - root.val);
+        while (stack.size() > 0) {
+            TreeNode pNode = stack.pop();
+            List<Integer> pathList = path.pop();
+            int curSum = sumStack.pop();
+            if (pNode.left == null && pNode.right == null && curSum == 0) {
+                resultList.add(new ArrayList<Integer>(pathList));
+            }
+            if (pNode.right != null) {
+                List<Integer> rightPath = new ArrayList<>(pathList);
+                rightPath.add(pNode.right.val);
+                path.push(rightPath);
+                stack.push(pNode.right);
+                sumStack.push(curSum - pNode.right.val);
+            }
+            if (pNode.left != null) {
+                List<Integer> leftPath = new ArrayList<>(pathList);
+                leftPath.add(pNode.left.val);
+                path.push(leftPath);
+                stack.push(pNode.left);
+                sumStack.push(curSum - pNode.left.val);
+            }
+        }
+        return resultList;
+    }
+}
