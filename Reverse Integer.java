@@ -17,9 +17,6 @@ Throw an exception? Good, but what if throwing an exception is not an option? Yo
 */
 public class Solution {
     public int reverse(int x) {
-        if (x == 0) {
-            return x;
-        }
         int result = 0;
         int num = x;
         while (num !=  0) {
