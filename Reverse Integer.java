@@ -24,6 +24,12 @@ public class Solution {
         int num = x;
         while (num !=  0) {
             int lastDigit = num % 10;
+            if (x > 0 && (Integer.MAX_VALUE - lastDigit) / 10 < result) {
+                return 0;
+            }
+            if (x < 0 && (Integer.MIN_VALUE - lastDigit) / 10 > result) {
+                return 0;
+            }
             result = result * 10 + lastDigit;
             num = num / 10;
         }
