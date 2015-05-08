@@ -27,3 +27,23 @@ public class Solution {
         return preNode;
     }
 }
+
+
+//recursion
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }       
+        return reverseListCore(head, null);
+    }
+
+    private ListNode reverseListCore(ListNode pNode, ListNode preNode) {
+        if (pNode == null) {
+            return preNode;
+        }
+        ListNode nextNode = pNode.next;
+        pNode.next = preNode;
+        return reverseListCore(nextNode, pNode);
+    }
+}
