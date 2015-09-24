@@ -88,3 +88,56 @@ public class Solution {
         return -1;  
     }
 }
+
+
+// Better Solution
+public class Solution {
+     public int calculate(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        int mulDiv = -1;
+        int pre = -1;
+        int sign = 1;
+        int result = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                int num = 0;
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + Character.getNumericValue(s.charAt(i));
+                    i++;
+                }   
+                i--;
+                if (mulDiv == -1) {
+                    pre = num;
+                }
+                else if (mulDiv == 1) {
+                    pre = pre * num;
+                    mulDiv = -1;
+                }
+                else {
+                    pre = pre / num;
+                    mulDiv = -1;
+                }
+            }
+            else if (s.charAt(i) == '+') {
+                result += sign * pre;
+                sign = 1;
+            }
+            else if (s.charAt(i) == '-') {
+                result += sign * pre;
+                sign = -1;
+            }
+            else if (s.charAt(i) == '*') {
+                mulDiv = 1;
+            }
+            else if (s.charAt(i) == '/') {
+                mulDiv = 0;
+            }
+        }
+        result += pre * sign;
+        return result;
+    }
+}
