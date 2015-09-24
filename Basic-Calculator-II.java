@@ -141,3 +141,77 @@ public class Solution {
         return result;
     }
 }
+// General Solution Using two stack
+
+public class Solution {
+    public int calculate(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        Stack<Integer> numStack = new Stack<>();
+        Stack<Character> opStack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                int num = 0;
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + Character.getNumericValue(s.charAt(i));
+                    i++;
+                }
+                // System.out.println(num);
+                numStack.push(num);
+                i--;
+            }
+            else if (s.charAt(i) == '(') {
+                opStack.push(s.charAt(i));
+            }
+            else if (s.charAt(i) == ')') {
+                while (opStack.peek() != '(') {
+                    numStack.push(apply(numStack.pop(), numStack.pop(), opStack.pop()));
+                }
+                opStack.pop();
+            }
+            else if (s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
+                while (opStack.size() != 0 && hasPrecedence(s.charAt(i), opStack.peek())) {
+                    numStack.push(apply(numStack.pop(), numStack.pop(), opStack.pop()));
+                }
+                opStack.push(s.charAt(i));  
+            } 
+        }
+
+        while(opStack.size() != 0) {
+            int numTwo = numStack.pop();
+            int numOne = numStack.pop();
+            char op = opStack.pop();
+            // System.out.println("Test: " + numTwo + " " + numOne + " " +  op);
+            numStack.push(apply(numTwo, numOne, op));
+        }
+        return numStack.pop();
+    }
+
+    private boolean hasPrecedence(char curChar, char preChar) {
+        if (curChar == '+' || curChar == '-') {
+            return true;
+        }
+        else if (preChar == '*' || preChar == '/') {
+            return true;
+        }
+        return false;
+    }
+
+    private int apply(int numTwo, int numOne, char op) {
+        if (op == '+') {
+            return numTwo + numOne;
+        }
+        else if (op == '-') {
+            return numOne - numTwo;
+        }
+        else if (op == '*') {
+            return numOne * numTwo;
+        }
+        else {
+            return numOne / numTwo;
+        }
+    }
+}
