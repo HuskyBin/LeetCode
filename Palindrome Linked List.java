@@ -46,3 +46,55 @@ public class Solution {
         return startNode;
     }
 }
+
+
+// Best solution
+
+class Result {
+    ListNode node;
+    boolean result;
+    
+    public Result(ListNode node, boolean result) {
+        this.node = node;
+        this.result = result;
+    }
+}
+public class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null) {
+            return true;
+        }
+        
+        int length = 0;
+        ListNode pNode = head;
+        while (pNode != null) {
+            pNode = pNode.next;
+            length += 1;
+        }
+        Result result = isPlainDromeCore(head, length);
+        return result.result;
+    }
+    
+    private Result isPlainDromeCore(ListNode head, int length) {
+        if (head == null || length == 0) {
+            return new Result(null, true);
+        }
+        if (length == 1){
+            return new Result(head.next, true);
+        }
+        if (length == 2){
+            return new Result(head.next.next, (head.val == head.next.val));
+        }
+        
+        Result res = isPlainDromeCore(head.next, length - 2);
+        if (!res.result || res.node == null) {
+            return res;
+        }
+        else {
+            res.result = head.val == res.node.val;
+            res.node = res.node.next;
+            return res;
+        }
+    }
+    
+}
