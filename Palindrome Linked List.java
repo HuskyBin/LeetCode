@@ -76,7 +76,7 @@ public class Solution {
     }
     
     private Result isPlainDromeCore(ListNode head, int length) {
-        if (head == null || length == 0) {
+        if (length == 0) {
             return new Result(null, true);
         }
         if (length == 1){
