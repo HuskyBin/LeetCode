@@ -87,7 +87,7 @@ public class Solution {
         }
         
         Result res = isPlainDromeCore(head.next, length - 2);
-        if (!res.result || res.node == null) {
+        if (!res.result) {
             return res;
         }
         else {
