@@ -19,8 +19,8 @@ public class Solution {
             return nums;
         }
 
-        int xor = nums[0];
-        for (int i = 1; i < nums.length; i++) {
+        int xor = 0;
+        for (int i = 0; i < nums.length; i++) {
             xor ^= nums[i];
         }
         int pivot = xor & (~(xor - 1));
