@@ -24,3 +24,11 @@ public class Solution {
         return result;
     }
 }
+
+//Method 2  直接qu平方根
+public class Solution {
+    public int bulbSwitch(int n) {
+        return (int)Math.sqrt(n);
+    }
+}
+
