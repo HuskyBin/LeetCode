@@ -19,12 +19,7 @@ public class Solution {
         int[] result = new int[num + 1];
         for (int n = 1; n <= num; n++){
             int tmp = n & (n - 1);
-            if (tmp == 0) {
-                result[n] = 1;
-            }
-            else {
-                result[n] = map[tmp] + 1;
-            }
+            result[n] = map[tmp] + 1;
             map[n] = result[n];
         }
         return result;
