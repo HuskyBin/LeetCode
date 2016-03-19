@@ -15,12 +15,10 @@ public class Solution {
         if (num < 0) {
             return null;
         }
-        int[] map = new int[num + 1];
         int[] result = new int[num + 1];
         for (int n = 1; n <= num; n++){
             int tmp = n & (n - 1);
-            result[n] = map[tmp] + 1;
-            map[n] = result[n];
+            result[n] = result[tmp] + 1;
         }
         return result;
     }
