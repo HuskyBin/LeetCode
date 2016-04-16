@@ -59,3 +59,38 @@ public class NestedIterator implements Iterator<Integer> {
         return stack.size() > 0;
     }
 }
+
+// Second Solution Queue
+public class NestedIterator implements Iterator<Integer> {
+
+    private Queue<Integer> queue = new LinkedList<>();
+    public NestedIterator(List<NestedInteger> nestedList) {
+        inQueue(nestedList);
+    }
+    
+    private void inQueue(List<NestedInteger> nestedList) {
+        if (nestedList == null) {
+            return;
+        }
+        for (int i = 0; i < nestedList.size(); i++) {
+            NestedInteger curNestedInteger = nestedList.get(i);
+            if (curNestedInteger.isInteger()) {
+                queue.add(curNestedInteger.getInteger());
+            }
+            else {
+                inQueue(curNestedInteger.getList());
+            }
+        }
+    }
+
+    @Override
+    public Integer next() {
+        if (queue.size() == 0) return null;
+        return queue.remove();
+    }
+
+    @Override
+    public boolean hasNext() {
+        return queue.size() > 0;
+    }
+}
