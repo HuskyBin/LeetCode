@@ -55,6 +55,8 @@ public class Solution {
     }
 }
 
+//
+
 
 
 
@@ -84,5 +86,36 @@ public class Solution {
             rev.add(r.get(i));
         }
         return rev;
+    }
+}
+
+
+// Better Solution
+public class Solution {
+    /**
+     * @param n a number
+     * @return Gray code
+     */
+    public ArrayList<Integer> grayCode(int n) {
+        // Write your code here
+        ArrayList<Integer> result = new ArrayList<>();
+        if (n == 0) {
+            result.add(0);
+            return result;
+        }
+        long number = 0;
+        result.add(0);
+        while (number <= Integer.MAX_VALUE && (number < (1L << n))) {
+            number ^= 1;
+            result.add((int)number);
+            number ^= (number - (number & (number - 1))) << 1;
+            if (number <= Integer.MAX_VALUE && (number < (1L << n))) {
+                result.add((int)number);
+            }
+            else {
+                break;
+            }
+        }
+        return result;
     }
 }
