@@ -68,9 +68,7 @@ public class Solution {
             List<String> subValue = seperateString(subString);
             for (String sub : subValue) {
                 NestedInteger subNestedInteger = deserialize(sub);
-                if (subNestedInteger != null) {
-                    nestValue.add(subNestedInteger);
-                }
+                nestValue.add(subNestedInteger);
             }
             for (NestedInteger i : nestValue) {
                 result.add(i);
