@@ -19,22 +19,17 @@ You may assume k is always valid, 1 ≤ k ≤ n2.
 public class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         PriorityQueue<Number> heap = new PriorityQueue<>();
-        
         heap.add(new Number(0, 0, matrix[0][0]));
-        boolean[][] visited = new boolean[matrix.length][matrix[0].length];
         Number result = null;
-        visited[0][0] = true;
         while (k > 0) {
             result = heap.poll();
             int curRow = result.row;
             int curColumn = result.column;
-            if (curRow < matrix.length - 1 && (visited[curRow + 1][curColumn] == false)) {
+            if (curRow < matrix.length - 1 && (curColumn == 0)) {
                 heap.add(new Number(curRow + 1, curColumn, matrix[curRow + 1][curColumn]));
-                visited[curRow + 1][curColumn] = true;
             }
-            if (curColumn < matrix[0].length - 1 && (visited[curRow][curColumn + 1] == false)) {
+            if (curColumn < matrix[0].length - 1) {
                 heap.add(new Number(curRow, curColumn + 1, matrix[curRow][curColumn + 1]));
-                visited[curRow][curColumn + 1] = true;
             }
             k--;
         }
