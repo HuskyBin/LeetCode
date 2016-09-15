@@ -79,24 +79,11 @@ public class Solution {
         Map<String, List<String>> map = new HashMap<>();
         for (String str : strings) {
             StringBuilder sb = new StringBuilder();
-            if (str.length() == 0) {
-                sb.append("-100");
+            for (int i = 0; i < str.length() - 1; i++) {
+                sb.append(((str.charAt(i) - str.charAt(i + 1)) + 26) % 26);
             }
-            else {
-                for (int i = 0; i < str.length() - 1; i++) {
-                    sb.append(((str.charAt(i) - str.charAt(i + 1)) + 26) % 26);
-                }
-            }
-            if (map.containsKey(sb.toString())) {
-                List<String> curList = map.get(sb.toString());
-                curList.add(str);
-                map.put(sb.toString(), curList);
-            }
-            else {
-                List<String> newList = new ArrayList<>();
-                newList.add(str);
-                map.put(sb.toString(), newList);
-            }
+            if (!(map.containsKey(sb.toString()))) map.put(sb.toString(), new ArrayList<String>());
+            map.get(sb.toString()).add(str);
         }
         for (String key : map.keySet()) {
             result.add(map.get(key));
@@ -104,3 +91,4 @@ public class Solution {
         return result;
     }
 }
+
