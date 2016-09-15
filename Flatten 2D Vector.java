@@ -70,3 +70,31 @@ public class Vector2D implements Iterator<Integer> {
         return true;
     }
 }
+
+// clean code
+
+public class Vector2D implements Iterator<Integer> {
+
+    public int firstIndex;
+    public int nestIndex;
+    public List<List<Integer>> vec2d;
+    public Vector2D(List<List<Integer>> vec2d) {
+        this.vec2d = vec2d;
+        this.firstIndex = 0;
+        this.nestIndex = 0;
+    }
+
+    @Override
+    public Integer next() {
+        return vec2d.get(firstIndex).get(nestIndex++);
+    }
+
+    @Override
+    public boolean hasNext() {
+        while (firstIndex < vec2d.size() && nestIndex >= vec2d.get(firstIndex).size()) {
+            firstIndex++;
+            nestIndex = 0;
+        }
+        return firstIndex < vec2d.size() && nestIndex < vec2d.get(firstIndex).size();
+    }
+}
