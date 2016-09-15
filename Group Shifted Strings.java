@@ -67,3 +67,40 @@ public class Solution {
         }
     }
 }
+
+// Clean code
+
+public class Solution {
+    public List<List<String>> groupStrings(String[] strings) {
+        if (strings == null) {
+            return null;
+        }
+        List<List<String>> result = new ArrayList<>();
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strings) {
+            StringBuilder sb = new StringBuilder();
+            if (str.length() == 0) {
+                sb.append("-100");
+            }
+            else {
+                for (int i = 0; i < str.length() - 1; i++) {
+                    sb.append(((str.charAt(i) - str.charAt(i + 1)) + 26) % 26);
+                }
+            }
+            if (map.containsKey(sb.toString())) {
+                List<String> curList = map.get(sb.toString());
+                curList.add(str);
+                map.put(sb.toString(), curList);
+            }
+            else {
+                List<String> newList = new ArrayList<>();
+                newList.add(str);
+                map.put(sb.toString(), newList);
+            }
+        }
+        for (String key : map.keySet()) {
+            result.add(map.get(key));
+        }
+        return result;
+    }
+}
