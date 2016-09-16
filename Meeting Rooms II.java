@@ -43,3 +43,32 @@ public class Solution {
         
     }
 }
+
+// Second Solution Useing heap
+public class Solution {
+    public int minMeetingRooms(Interval[] intervals) {
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+       
+        Arrays.sort(intervals, (a, b) -> (a.start - b.start));
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        int room = 0;
+        for (Interval interval : intervals) {
+            if (heap.size() == 0) {
+                heap.add(interval.end);
+                room++;
+                continue;
+            }
+            if (heap.peek() > interval.start) {
+                room++;
+                heap.add(interval.end);
+            }
+            else {
+                heap.poll();
+                heap.add(interval.end);
+            }
+        }
+        return room;
+    }
+}
