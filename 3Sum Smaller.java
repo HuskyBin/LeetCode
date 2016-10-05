@@ -8,6 +8,34 @@ Return 2. Because there are two triplets which sums are less than 2:
 [-2, 0, 1]
 [-2, 0, 3]
 */
+
+// 双指针方法
+
+public class Solution {
+    public int threeSumSmaller(int[] nums, int target) {
+        if (nums == null) {
+            return 0;
+        }
+        int result = 0;
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int low = i + 1;
+            int high = nums.length - 1;
+            while (low < high) {
+                if (nums[i] + nums[low] + nums[high] < target) {
+                    result += high - low;
+                    low++;
+                }
+                else {
+                    high--;
+                }
+            }
+        }
+        return result;
+    }
+}
+
+// 自己的笨方法
 public class Solution {
     public int threeSumSmaller(int[] nums, int target) {
         if (nums == null) {
