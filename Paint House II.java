@@ -9,6 +9,40 @@ All costs are positive integers.
 Follow up:
 Could you solve it in O(nk) runtime?
 */
+
+// BS
+public class Solution {
+    public int minCostII(int[][] costs) {
+        if (costs == null || costs.length == 0) {
+            return 0;
+        }
+        int min1 = 0;
+        int min2 = 0;
+        int lastColor = -1;
+        for (int i = 0; i < costs.length; i++) {
+            int curMin1 = Integer.MAX_VALUE;
+            int curMin2 = Integer.MAX_VALUE;
+            int curMinColor = -1;
+            for (int j = 0; j < costs[0].length; j++) {
+                int cost = costs[i][j] + (j == lastColor ? min2 : min1);
+                if (cost < curMin1) {
+                    curMin2 = curMin1;
+                    curMin1 = cost;
+                    curMinColor = j;
+                }
+                else if (cost < curMin2) {
+                    curMin2 = cost;
+                }
+            }
+            min1 = curMin1;
+            min2 = curMin2;
+            lastColor = curMinColor;
+        }
+        return min1;
+    }
+}
+
+// MS
 public class Solution {
     public int minCostII(int[][] costs) {
         if (costs == null || costs.length == 0) {
@@ -43,3 +77,4 @@ public class Solution {
         return result;
     }
 }
+
