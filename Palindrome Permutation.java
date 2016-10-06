@@ -9,15 +9,10 @@ public class Solution {
         if (s == null || s.length() == 0) {
             return true;
         }
-        if (s.length() % 2 == 0) {
-            return checkCore(s, true);
-        }
-        else {
-            return checkCore(s, false);
-        }
+        return checkCore(s);
     }
     
-    private boolean checkCore(String s, boolean isEven) {
+    private boolean checkCore(String s) {
         Set<Character> set = new HashSet<>();
         for (int i = 0; i < s.length(); i++) {
             char curChar = s.charAt(i);
@@ -28,12 +23,6 @@ public class Solution {
                 set.add(curChar);
             }
         }
-        if (isEven && set.size() == 0) {
-            return true;
-        }
-        if (isEven == false && set.size() == 1) {
-            return true;
-        }
-        return false;
+        return set.size() <= 1;
     }
 }
