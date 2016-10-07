@@ -14,6 +14,45 @@ You are guaranteed to have only one unique value in the BST that is closest to t
  *     TreeNode(int x) { val = x; }
  * }
  */
+ // No Constant
+
+public class Solution {
+
+    public int closestValue(TreeNode root, double target) {
+       if (root == null) {
+           return Integer.MIN_VALUE;
+       }
+       if (root.val == target) {
+           return root.val;
+       }
+       else if (root.val > target) {
+           if (root.left != null) {
+               int l = closestValue(root.left, target);
+               if (Math.abs(l - target) < Math.abs(target - root.val)) {
+                   return l;
+               }
+               else {
+                   return root.val;
+               }
+           }
+           return root.val;
+       }
+       else {
+           if (root.right != null) {
+               int r = closestValue(root.right, target);
+               if (Math.abs(r - target) < Math.abs(target - root.val)) {
+                   return r;
+                }
+                else {
+                    return root.val;
+                }
+           }
+           return root.val;
+       }
+    }
+}
+
+
 public class Solution {
     private int result = -1;
     public int closestValue(TreeNode root, double target) {
