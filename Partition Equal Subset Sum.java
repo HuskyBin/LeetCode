@@ -19,6 +19,38 @@ Output: false
 
 Explanation: The array cannot be partitioned into equal sum subsets.
 */
+
+//Dp
+
+public class Solution {
+    public boolean canPartition(int[] nums) {
+        if (nums == null) {
+            return false;
+        }
+        
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        
+        if (sum % 2 == 1) {
+            return false;
+        }
+        int target = sum / 2;
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j <= target - nums[i]; j++) {
+                if (dp[j]) {
+                    dp[j + nums[i]] = true;
+                }
+            }
+        }
+        return dp[target];
+    }
+}
+
+//DFS
 public class Solution {
     public boolean canPartition(int[] nums) {
         if (nums == null) {
