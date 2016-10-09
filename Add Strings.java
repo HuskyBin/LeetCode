@@ -8,6 +8,35 @@ Both num1 and num2 contains only digits 0-9.
 Both num1 and num2 does not contain any leading zero.
 You must not use any built-in BigInteger library or convert the inputs to integer directly.
 */
+
+
+// Shorter Solution
+public class Solution {
+    public String addStrings(String num1, String num2) {
+        if (num1 == null || num2 == null) {
+            return (num1 == null) ? num2 : num1;
+        }
+        int index = num1.length() - 1;
+        int longerIndex = num2.length() - 1;
+        StringBuilder sb = new StringBuilder();
+        int carry = 0;
+        while (index >= 0 || longerIndex >= 0 || carry > 0) {
+            int sum = carry;
+            if (index >= 0)  sum += num1.charAt(index) - '0';
+            if (longerIndex >= 0) sum += num2.charAt(longerIndex) - '0';
+            carry =sum / 10;
+            sb.append(sum % 10);
+            index--;
+            longerIndex--;
+        }
+        if (carry > 0) {
+            sb.append(carry);
+        }
+        return sb.reverse().toString();
+    }
+}
+
+// Longer one
 public class Solution {
     public String addStrings(String num1, String num2) {
         if (num1 == null || num2 == null) {
