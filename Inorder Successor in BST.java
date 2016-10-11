@@ -12,6 +12,31 @@ Note: If the given node has no in-order successor in the tree, return null.
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+// Better Clean code
+
+public class Solution {
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if (p == null || root == null) {
+            return null;
+        }
+        
+        TreeNode successor = null;
+        while (root != null) {
+            if (root.val > p.val) {
+                successor = root;
+                root = root.left;
+            }
+            else {
+                root = root.right;
+            }
+        }
+        return successor;
+    }
+}
+
+
+// My old code
 public class Solution {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         if (p == null || root == null) {
