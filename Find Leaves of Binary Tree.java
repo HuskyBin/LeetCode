@@ -33,22 +33,31 @@ Returns [4, 5, 3], [2], [1].
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 public class Solution {
     public List<List<Integer>> findLeaves(TreeNode root) {
         List<List<Integer>> resultList = new ArrayList<>();
         if (root == null) {
             return resultList;
         }
-        findLeavesCore(root, resultList, 0);
+        findLeavesCore(root, resultList);
         return resultList;
     }
     
-    private int findLeavesCore(TreeNode pNode, List<List<Integer>> resultList, int level) {
+    private int findLeavesCore(TreeNode pNode, List<List<Integer>> resultList) {
         if (pNode == null) {
             return -1;
         }
-        int left = findLeavesCore(pNode.left, resultList, level + 1);
-        int right = findLeavesCore(pNode.right, resultList, level + 1);
+        int left = findLeavesCore(pNode.left, resultList);
+        int right = findLeavesCore(pNode.right, resultList);
         int curLevel = Math.max(left, right) + 1;
         if (resultList.size() >= curLevel + 1) {
             List<Integer> curList = resultList.get(curLevel);
