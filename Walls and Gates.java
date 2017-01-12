@@ -79,3 +79,33 @@ public class Solution {
         }
     }
 }
+
+
+// DFS
+
+public class Solution {
+    public void wallsAndGates(int[][] rooms) {
+        if (rooms == null) {
+            return;
+        }
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j < rooms[0].length; j++) {
+                if (rooms[i][j] == 0) {
+                    findGate(rooms, i, j, 0);
+                }
+            }
+        }
+    }
+    
+    
+    private void findGate(int[][] rooms, int row, int column, int dis) {
+        if (row < 0 || column < 0 || row >= rooms.length || column>= rooms[0].length || rooms[row][column] < dis) {
+            return;
+        }
+        rooms[row][column] = dis;
+        findGate(rooms, row + 1, column, dis + 1);
+        findGate(rooms, row - 1, column, dis + 1);
+        findGate(rooms, row, column - 1, dis + 1);
+        findGate(rooms, row, column + 1, dis + 1);
+    }
+}
