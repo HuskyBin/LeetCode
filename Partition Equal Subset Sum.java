@@ -24,29 +24,27 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 
 public class Solution {
     public boolean canPartition(int[] nums) {
-        if (nums == null) {
+        if (nums == null || nums.length == 0) {
             return false;
         }
-        
         int sum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
+        for (int n : nums) {
+            sum += n;
         }
-        
         if (sum % 2 == 1) {
             return false;
         }
         int target = sum / 2;
         boolean[] dp = new boolean[target + 1];
         dp[0] = true;
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 0; j <= target - nums[i]; j++) {
-                if (dp[j]) {
-                    dp[j + nums[i]] = true;
-                }
+        
+        for (int n : nums) {
+            for (int i = target; i >= n; i--) {
+                dp[i] = dp[i] || dp[i - n];
+                if (i == target && dp[i]) return true;
             }
         }
-        return dp[target];
+        return false;
     }
 }
 
