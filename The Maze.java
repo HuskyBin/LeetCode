@@ -62,40 +62,20 @@ public class Solution {
             return false;
         }
         visited.add(keyStr);
-        boolean result = false;
-        int tempRow = row;
-        if ((tempRow - 1) >= 0 && maze[tempRow - 1][column] == 0) {
-            while ((tempRow - 1) >= 0 && maze[tempRow - 1][column] == 0) {
-                tempRow--;
-            }
-            result = findCore(maze, tempRow, column, destination, visited);
-            if (result) return result;
-        }
-        tempRow = row;
-        if ((tempRow + 1) < maze.length && maze[tempRow + 1][column] == 0) {
-            while ((tempRow + 1) < maze.length && maze[tempRow + 1][column] == 0) {
-                tempRow++;
-            }
-            result = findCore(maze, tempRow, column, destination, visited);
-            if (result) return result;
-        }
-        int tempColumn = column;
-        if ((tempColumn - 1) >= 0 && maze[row][tempColumn - 1] == 0) {
-            while ((tempColumn - 1) >= 0 && maze[row][tempColumn - 1] == 0) {
-                tempColumn--;
-            }
-            result = findCore(maze, row, tempColumn, destination, visited);
-            if (result) return result;
-        }
-        tempColumn = column;
-        if ((tempColumn + 1) < maze[0].length && maze[row][tempColumn + 1] == 0) {
-            while ((tempColumn + 1) < maze[0].length && maze[row][tempColumn + 1] == 0) {
-                tempColumn++;
-            }
-            result = findCore(maze, row, tempColumn, destination, visited);
-            if (result) return result;
+        int[][] dir = {{-1,0},{0,1},{1,0},{0,-1}};
+        for (int i = 0; i < dir.length; i++) {
+            boolean result = helper(maze, row, column, destination, dir[i][0], dir[i][1], visited);
+            if (result == true) return true;
         }
         return false;
-        
+    }
+    
+    private boolean helper(int[][] maze, int row, int column, int[] destination, int x, int y, Set<String> visited) {
+        while (row + x >= 0 && row + x < maze.length && column + y >= 0 && column + y < maze[0].length && 
+        maze[row + x][column + y] == 0) {
+            row += x;
+            column += y;
+        }
+        return findCore(maze, row, column, destination, visited);
     }
 }
