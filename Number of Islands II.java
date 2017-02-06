@@ -65,6 +65,7 @@ public class Solution {
     
     private int findRoot(int[] root, int node) {
         while (node != root[node]) {
+            root[node] = root[root[node]];
             node = root[node];
         }
         return node;
