@@ -47,3 +47,36 @@ public class Solution {
         return -1;
     }
 }
+// stack solution
+public class Solution {
+    public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        if (findNums == null || nums == null) {
+            return null;
+        }   
+        int result[] = new int[findNums.length];
+        Stack<Integer> stack = new Stack<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (stack.isEmpty()) {
+                stack.push(num);
+            }
+            else {
+                while (!stack.isEmpty() && num > stack.peek()) {
+                    map.put(stack.peek(), num);
+                    stack.pop();
+                }
+                stack.push(num);
+            }
+        }
+        for (int i = 0; i < findNums.length; i++) {
+            if (map.containsKey(findNums[i])) {
+                result[i] = map.get(findNums[i]);
+            }
+            else {
+                result[i] = -1;
+            }
+            
+        }
+        return result;
+    }
+}
