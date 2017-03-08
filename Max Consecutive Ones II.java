@@ -13,7 +13,8 @@ The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 Follow up:
 What if the input numbers come in one by one as an infinite stream? In other words, you can't store all numbers coming from the stream as it's too large to hold in memory. Could you solve it efficiently?
-*/public class Solution {
+*/
+public class Solution {
     public int findMaxConsecutiveOnes(int[] nums) {
         int lastGroup = 0;
         int curGroup = 0;
@@ -22,20 +23,15 @@ What if the input numbers come in one by one as an infinite stream? In other wor
         for (int num : nums) {
             if (num == 0) {
                 hasZero = true;
-                max = Math.max(max, lastGroup + curGroup + 1);
                 lastGroup = curGroup;
                 curGroup = 0;
             }
             else {
                 curGroup += 1;
             }
+            max = Math.max(max, lastGroup + curGroup + 1);  
         }
-        if (hasZero) {
-            max = Math.max(max, lastGroup + curGroup + 1);    
-        }
-        else {
-            max = curGroup;
-        }
+        if (hasZero == false) return curGroup;
         return max;
     }
 }
