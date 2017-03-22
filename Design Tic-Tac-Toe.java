@@ -105,3 +105,64 @@ public class TicTacToe {
 
 
 }
+
+
+// Better Solution
+
+public class TicTacToe {
+
+    /** Initialize your data structure here. */
+    public int[][] board = null;
+    public TicTacToe(int n) {
+        board = new int[n][n];
+    }
+    
+    /** Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins. */
+    public int move(int row, int col, int player) {
+        board[row][col] = player;
+        if (isWin(player, row, col)) return player;
+        return 0;
+    }
+
+    private boolean isWin(int player, int row, int col) {
+        if (isWinCore(player, row, 0, 0, 1)) {
+            return true;
+        }
+        else if (isWinCore(player, 0, col, 1, 0)) {
+            return true;
+        }
+        if (row == col) {
+            if (isWinCore(player, 0, 0, 1, 1)) {
+                return true;
+            }
+        }
+        if ((row + col) == board.length - 1) {
+            if (isWinCore(player, 0, board.length - 1, 1, -1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isWinCore(int player, int rowIndex, int columnIndex, int dx, int dy) {
+        boolean isWin = true;
+        for (int i = 0; i < board.length; i++) {
+            if (board[rowIndex][columnIndex] != player) {
+                isWin = false;
+                break;
+            }
+            rowIndex += dx;
+            columnIndex += dy;
+        }
+        return isWin;
+    }
+
+
+}
