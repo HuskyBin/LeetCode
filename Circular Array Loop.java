@@ -33,3 +33,35 @@ class Solution {
         return nums[index];
     }
 }
+// 迭代
+
+class Solution(object):
+    def circularArrayLoop(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        size = len(nums)
+        next = lambda x : (x + nums[x] + size) % size
+        for x in range(size):
+            if not nums[x]:
+                continue
+            y, c = x, 0
+            while c < size:
+                z = next(y)
+                if y == z:
+                    nums[y] = 0
+                if nums[y] * nums[z] <= 0:
+                    break
+                y = z
+                c += 1
+                if y == x:
+                    return True
+            if c == size:
+                return True
+            y = x
+            while c > 0:
+                z = next(y)
+                nums[y] = 0
+                c -= 1
+        return False
