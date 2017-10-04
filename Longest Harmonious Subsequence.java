@@ -29,3 +29,4 @@ public class Solution {
         return result;
     }
 }
+／／ 第二种方法： 用map先存起来，然后在找key + 1 是否存在，就完事了
