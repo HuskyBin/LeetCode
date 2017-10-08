@@ -106,3 +106,53 @@ class Solution {
         return sum;
     }
 }
+
+
+// dfs
+class Solution {
+    public char[][] updateBoard(char[][] board, int[] click) {
+        if (board == null || click == null) {
+            return null;
+        }
+        if (board[click[0]][click[1]] == 'M') {
+                board[click[0]][click[1]] = 'X';
+                return board;
+        }
+        int[][] dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1}};
+        boolean[][] visited = new boolean[board.length][board[0].length]; 
+        dfs(board, click[0], click[1], visited, dir);
+        return board;
+    }
+    
+    private void dfs(char[][] board, int row, int column, boolean[][] visited, int[][] dir) {
+        int numOfMine = findNumOfMine(board, row, column, dir);
+        if (numOfMine > 0) {
+            board[row][column] = String.valueOf(numOfMine).charAt(0);
+            return;
+        }
+        board[row][column] = 'B';
+        for (int i = 0; i < dir.length; i++) {
+            int newRow = row + dir[i][0];
+            int newColumn = column + dir[i][1];
+            
+            if (newRow >= 0 && newRow < board.length && newColumn >= 0 && newColumn < board[0].length && board[newRow][newColumn] == 'E') {
+                if (visited[newRow][newColumn] == false) {
+                    visited[newRow][newColumn] = true;
+                    dfs(board, newRow, newColumn, visited, dir);
+                }
+            }
+        }
+    }
+    
+    private int findNumOfMine(char[][] board, int row, int column, int[][] dir) {
+        int sum = 0;
+        for (int i = 0; i < dir.length; i++) {
+            int newRow = row + dir[i][0];
+            int newColumn = column + dir[i][1];
+            if (newRow >= 0 && newRow < board.length && newColumn >= 0 && newColumn < board[0].length && board[newRow][newColumn] == 'M') {
+                sum++;
+            } 
+        }
+        return sum;
+    }
+}
