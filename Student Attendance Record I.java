@@ -37,9 +37,9 @@ class Solution {
                 int end = start + 1;
                 while (end < s.length() && s.charAt(end) == 'L') {
                     end++;
-                }
-                if (end - start > 2) {
-                    return false;
+                    if (end - start > 2) {
+                        return false;
+                    }
                 }
                 start = end - 1;
             }
