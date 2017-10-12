@@ -29,6 +29,11 @@ class Solution {
 }
 
 // O(n)
+从左往右遍历的话，如果有序的话当前位置一定是已经遍历到的最大值位置；从右往左遍历的话，当前位置一定是已经遍历到的最小值位置。如果不是就要记录下beg和end。
+
+
+另外初始赋值beg和end也很巧妙，保证如果完全有序的话返回0。如果不是完全有序的话必定beg和end都会被更新。
+
 public class Solution {
     public int findUnsortedSubarray(int[] nums) {
         int len=nums.length;
