@@ -43,6 +43,15 @@ Output:
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
     public TreeNode trimBST(TreeNode root, int L, int R) {
         if (root == null) {
@@ -54,21 +63,8 @@ class Solution {
         if (root.val > R) {
             return trimBST(root.left, L, R);
         }
-        return newTree(root, L, R);
-    }
-    
-    private TreeNode newTree(TreeNode pNode, int L, int R) {
-        if (pNode == null) {
-            return null;
-        }
-        if (pNode.val < L) {
-            return newTree(pNode.right, L, R);
-        }
-        if (pNode.val > R) {
-            return newTree(pNode.left, L, R);
-        }
-        pNode.left = newTree(pNode.left, L, R);
-        pNode.right = newTree(pNode.right, L, R);
-        return pNode;
+        root.left = trimBST(root.left, L, R);
+        root.right = trimBST(root.right, L, R);
+        return root;
     }
 }
