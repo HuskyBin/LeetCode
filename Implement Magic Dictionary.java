@@ -16,6 +16,12 @@ You may assume that all the inputs are consist of lowercase letters a-z.
 For contest purpose, the test data is rather small by now. You could think about highly efficient algorithm after the contest.
 Please remember to RESET your class variables declared in class MagicDictionary, as static/class variables are persisted across multiple test cases. Please see here for more details.
 */
+创建字典dmap<String, Set>
+
+build操作：用下划线'_'替换word的每一个位置的字母，作为Key，被替换的字母作为Value，存入dmap
+
+search操作：用下划线'_'替换word的每一个位置的字母，作为Key，在dmap中查找与被替换字母不同的值
+
 class MagicDictionary {
 
     private Map<String, Set<Character>> map;
