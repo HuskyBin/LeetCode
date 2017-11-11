@@ -29,7 +29,7 @@ Example 2:
 
 Return false. There is no way to jump to the last stone as 
 the gap between the 5th and 6th stone is too large.
-*/
+**/
 class Solution {
     public boolean canCross(int[] stones) {
         if (stones == null) {
@@ -48,17 +48,17 @@ class Solution {
         }
         int index1 = Arrays.binarySearch(stones, index + 1, stones.length, stones[index] + size - 1);
         if (index1 >= 0 && findCore(stones, index1, size - 1, dp) == 1) {
-            dp[index1][size - 1] = 1;
+            dp[index][size] = 1;
             return 1;
         }
         int index2 = Arrays.binarySearch(stones, index + 1, stones.length, stones[index] + size);
         if (index2 >= 0 && findCore(stones, index2, size, dp) == 1) {
-            dp[index2][size] = 1;
+            dp[index][size] = 1;
             return 1;
         }
         int index3 = Arrays.binarySearch(stones, index + 1, stones.length, stones[index] + size + 1);
         if (index3 >= 0 && findCore(stones, index3, size + 1, dp) == 1) {
-            dp[index3][size + 1] = 1;
+            dp[index][size] = 1;
             return 1;
         }
         dp[index][size] = index == stones.length - 1 ? 1 : 0;
