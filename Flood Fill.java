@@ -25,24 +25,20 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
 */
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        if (image == null || image.length == 0 || image[0].length == 0) {
+        if (image == null || image.length == 0 || image[0].length == 0 || image[sr][sc] == newColor) {
                 return image;
         }
         final int oldColor = image[sr][sc];
         final int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        boolean[][] visited = new boolean[image.length][image[0].length];
-        fillDfs(image, sr, sc, oldColor, newColor, dirs, visited);
+        fillDfs(image, sr, sc, oldColor, newColor, dirs);
         return image;
     }
 
-    private void fillDfs(int[][] image, int row, int column, int oldColor, int newColor, int[][] dirs, boolean[][] visited) {
+    private void fillDfs(int[][] image, int row, int column, int oldColor, int newColor, int[][] dirs) {
         if (row < 0 || row >= image.length || column < 0 || column >= image[0].length) {
             return;
         }
-        if (visited[row][column]) {
-            return;
-        }
-        visited[row][column] = true;
+
         if (image[row][column] == oldColor) {
             image[row][column] = newColor;
         } else {
@@ -52,7 +48,7 @@ class Solution {
             int newRow = row + dirs[i][0];
             int newColumn = column + dirs[i][1];
             
-            fillDfs(image, newRow, newColumn, oldColor, newColor, dirs, visited);
+            fillDfs(image, newRow, newColumn, oldColor, newColor, dirs);
         }
     }
 }
