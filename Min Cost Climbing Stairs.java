@@ -32,3 +32,24 @@ class Solution {
         return Math.min(dp[cost.length - 1], dp[cost.length - 2]);
     }
 }
+
+// rolling array
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        if (cost == null || cost.length < 2) {
+            return 0;
+        }
+        
+        int[] dp = new int[cost.length];
+        int preCost = cost[0];
+        int curCost = cost[1];
+        for (int i = 2; i < cost.length; i++) {
+            int temp = curCost;
+            curCost = Math.min(curCost, preCost) + cost[i];
+            preCost = temp;
+        }
+        return Math.min(preCost, curCost);
+    }
+}
+
