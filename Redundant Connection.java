@@ -52,15 +52,15 @@ class Solution {
     
     private class UnionFind {
         private int[] parent;
-        private int[] size;
+        private int[] rank;
         
         public UnionFind(int n) {
             parent = new int[n + 1];
-            size = new int[n + 1];
+            rank = new int[n + 1];
             
             for (int i = 0; i <= n; i++) {
                 parent[i] = i;
-                size[i] = 1;
+                rank[i] = 1;
             }
         }
         
@@ -78,12 +78,13 @@ class Solution {
             if (rootp == rootq) {
                 return;
             }
-            if (size[rootp] >= size[rootq]) {
+            if (rank[rootp] > rank[rootq]) {
                 parent[rootq] = rootp;
-                size[rootp] += size[rootq];
             } else {
                 parent[rootp] = parent[rootq];
-                size[rootq] += size[rootp];
+                if (rank[rootp] == rank[rootq]) {
+                    rank[rootq]++;
+                }
             }
         }
     }
