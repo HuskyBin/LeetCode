@@ -16,6 +16,6 @@ A and B will have length at most 100.
 */
 class Solution {
     public boolean rotateString(String A, String B) {
-        return (A + A).contains(B);
+        return (A.length() == B.length()) && (A + A).contains(B);
     }
 }
