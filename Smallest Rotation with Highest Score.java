@@ -31,7 +31,7 @@ A will have length at most 20000.
 A[i] will be in the range [0, A.length].
 */
 
-Key point
+/*Key point
 Don’t calculate the score for K=0, we don’t need it at all.
 (I see almost all other solutions did)
 The key point is to find out how score changes when K++
@@ -58,7 +58,7 @@ All I have done is record the value of K for all A[i] where we will lose points.
 c) A[i]=0
 Rotation makes no change for it, becasue we alwars have 0 <= index.
 However, it is covered in a) and b)
-
+*/
 
 
 // 思想： 先判断A[i]需要多少步，可以到index 为i的地方： (i - A[i] + N) % N, 那么K大于这个数的时候，就会lost 这个point
