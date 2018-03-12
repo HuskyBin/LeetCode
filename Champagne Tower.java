@@ -29,11 +29,11 @@ query_glass and query_row will be in the range of [0, 99].
 */
 class Solution {
     public double champagneTower(int poured, int query_row, int query_glass) {
-        double[][] glasses = new double[101][101];
+        double[][] glasses = new double[query_row + 2][101];
         int row = 100;
         int column = 100;
         glasses[0][0] = poured;
-        for (int i = 0; i < row; i++) {
+        for (int i = 0; i <= query_row; i++) {
             boolean hasOverValue = false; 
             for (int j = 0; j <= i; j++) {
                 double overValue = glasses[i][j] > 1 ? (glasses[i][j] - 1) / 2.0 : 0.0;
@@ -48,6 +48,6 @@ class Solution {
                 break;
             }
         }
-        return glasses[query_row][query_glass];
+        return Math.min(1, glasses[query_row][query_glass]);
     }
 }
