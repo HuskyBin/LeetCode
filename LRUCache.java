@@ -8,6 +8,92 @@ set(key, value) - Set or insert the value if the key is not already present. Whe
 
 // Need to add Two DummyNode (head, tail) into the Double list at the Beginning. In this way we could solve corner cases easily.
 
+// better solution
+class LRUCache {
+    
+    private Map<Integer, Node> map;
+    private int capacity;
+    private int count;
+    private Node head;
+    private Node end;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<Integer, Node>();
+        count = 0;
+        head = new Node(-1, -1);
+        end = new Node(-1, -1);
+        head.next = end;
+        end.pre = head;
+    }
+    
+    public int get(int key) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            deleteNode(node);
+            addNode(node);
+            return node.val;
+        } else {
+            return -1;
+        }
+    }
+    
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.val = value;
+            deleteNode(node);
+            addNode(node);
+        } else {
+            Node node = new Node(key, value);
+            map.put(key, node);
+            if (capacity > count) {
+                count++;
+                addNode(node);
+            } else {
+                map.remove(end.pre.key);
+                deleteNode(end.pre);
+                addNode(node);
+            }
+        }
+    }
+    
+    private void deleteNode(Node node) {
+        Node preNode = node.pre;
+        Node nextNode = node.next;
+        preNode.next = nextNode;
+        nextNode.pre = preNode;
+    }
+    
+    private void addNode(Node node) {
+        node.next = head.next;
+        head.next.pre = node;
+        node.pre = head;
+        head.next = node;
+    }
+    
+    private static class Node {
+        public Node next;
+        public Node pre;
+        public int val;
+        private int key;
+        
+        public Node(int key, int val) {
+            this.val = val;
+            this.key = key;
+        }
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+
+
+
 public class LRUCache {
     
     private Map<Integer, ListNode> nodeMap = new HashMap<>();
