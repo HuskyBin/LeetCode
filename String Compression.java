@@ -61,13 +61,8 @@ class Solution {
             result++;
             if (end - start > 1) {
                 int num = end - start;
-                Stack<Integer> stack = new Stack<>();
-                while (num > 0) {
-                    stack.push(num % 10);
-                    num /= 10;
-                }
-                while (!stack.isEmpty()) {
-                    chars[result++] = (char)('0' + stack.pop());
+                for (char c : ("" + num).toCharArray()) {
+                    chars[result++] = c;
                 }
             } 
             start = end;
