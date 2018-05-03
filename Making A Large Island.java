@@ -19,6 +19,11 @@ Input: [[1, 1], [1, 1]]
 Output: 4
 Explanation: Can't change any 0 to 1, only one island with area = 1.
 */
+
+// 这不是最优解
+//  先dfs，算出每一个group的大小，然后把他们的value都赋值成一个unique的index
+// 然后对于每一个 o，看上下左右的group index，如果是没见过的index，就加上这个group的value
+// 核心思想，每个group只算一遍
 class Solution {
     public int largestIsland(int[][] grid) {
         if (grid == null) {
