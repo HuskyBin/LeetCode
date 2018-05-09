@@ -56,14 +56,14 @@ class Solution {
                     if (visited.contains(nextNode)) {
                         continue;
                     }
-        			double newCost = curPair.curCost * cost.get(curPair.node).get(nextNode);
-        			if (nextNode.equals(query[1])) {
-        				result[i] = newCost;
+                    double newCost = curPair.curCost * cost.get(curPair.node).get(nextNode);
+                    if (nextNode.equals(query[1])) {
+                        result[i] = newCost;
                         isFound = true;
-        				break;
-        			}
-        			visited.add(nextNode);
-        			queue.add(new Pair(nextNode, newCost));
+                        break;
+                    }
+                    visited.add(nextNode);
+                    queue.add(new Pair(nextNode, newCost));
         		}
         	}
             if (!isFound) {
