@@ -64,8 +64,8 @@ class Solution {
                     }
                     visited.add(nextNode);
                     queue.add(new Pair(nextNode, newCost));
-        		}
-        	}
+                }
+            }
             if (!isFound) {
                 result[i] = -1.0;
             }
