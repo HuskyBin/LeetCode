@@ -23,24 +23,20 @@ class Solution {
  		}       
 
  		int[] dp = new int[nums.length];
+ 		int result = 1;
  		for (int i = 0; i < nums.length; i++) {
- 			if (dp[i] != 0) {
+ 			if (nums[i] == Integer.MAX_VALUE) {
  				continue;
  			}
- 			Set<Integer> indexSet = new HashSet<>();
- 			indexSet.add(i);
  			int nextIndex = i;
- 			while (!indexSet.contains(nums[nextIndex])) {
- 				nextIndex = nums[nextIndex];
- 				indexSet.add(nextIndex);
+ 			int count = 0;
+ 			while (nums[nextIndex] != Integer.MAX_VALUE) {
+ 				int tmp = nums[nextIndex];
+ 				nums[nextIndex] = Integer.MAX_VALUE;
+ 				nextIndex = tmp;
+ 				count++;
  			}
- 			for (int numIndex : indexSet) {
- 				dp[numIndex] = indexSet.size();
- 			}
- 		}
- 		int result = 1;
- 		for (int num : dp) {
- 			result = Math.max(result, num);
+ 			result = Math.max(result, count);
  		}
  		return result;
     }
