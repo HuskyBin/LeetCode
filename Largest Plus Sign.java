@@ -55,6 +55,62 @@ mines will have length at most 5000.
 mines[i] will be length 2 and consist of integers in the range [0, N-1].
 (Additionally, programs submitted in C, C++, or C# will be judged with a slightly smaller time limit.)
 */
+
+// Another write
+class Solution {
+    public int orderOfLargestPlusSign(int N, int[][] mines) {
+        if (mines == null) {
+            return 0;
+        }       
+        int[][] dp = new int[N][N];
+        for (int[] arr : dp) {
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = N;
+            }
+        }
+        Set<Integer> mineSet = new HashSet<>();
+        for (int[] mine : mines) {
+            mineSet.add(mine[0] * N + mine[1]);
+        }
+        int result = 0;
+
+        for (int i = 0; i < N; i++) {
+            int count = 0;
+            for (int j = 0; j < N; j++) {
+                count = mineSet.contains(j * N + i) ? 0 : count + 1;
+                dp[j][i] = Math.min(dp[j][i], count);
+            }
+            count = 0;
+            for (int j = N - 1; j >= 0; j--) {
+                count = mineSet.contains(j * N + i) ? 0 : count + 1;
+                dp[j][i] = Math.min(dp[j][i], count);
+            }
+        
+            count = 0;
+            for (int j = 0; j < N; j++) {
+                count = mineSet.contains(i * N + j) ? 0 : count + 1;
+                dp[i][j] = Math.min(dp[i][j], count);
+            }
+
+            count = 0;
+            for (int j = N - 1; j >= 0; j--) {
+                count = mineSet.contains(i * N + j) ? 0 : count + 1;
+                dp[i][j] = Math.min(dp[i][j], count);
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                result = Math.max(result, dp[i][j]);
+            }
+        }
+
+        return result;
+    }
+}
+
+
+// initial write
 class Solution {
     public int orderOfLargestPlusSign(int N, int[][] mines) {
         if (mines == null) {
