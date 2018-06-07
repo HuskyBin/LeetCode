@@ -30,7 +30,7 @@ collection.getRandom();
 */
 class RandomizedCollection {
     
-    Map<Integer, List<Integer>> map = new HashMap<>();
+    Map<Integer, Set<Integer>> map = new HashMap<>();
     List<Integer> list = new ArrayList<>();
 
 
@@ -42,7 +42,7 @@ class RandomizedCollection {
     /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
     public boolean insert(int val) {
         boolean result = map.containsKey(val) ? false : true;
-        map.computeIfAbsent(val, k -> new ArrayList<>()).add(list.size());
+        map.computeIfAbsent(val, k -> new HashSet<>()).add(list.size());
         list.add(val);
         return result;
     }
@@ -52,22 +52,19 @@ class RandomizedCollection {
         if (!map.containsKey(val)) {
             return false;
         }
-        List<Integer> indexList = map.get(val);
-        int removeIndex = indexList.get(indexList.size() - 1);
-        indexList.remove(indexList.size() - 1);
+        Set<Integer> indexSet = map.get(val);
+        int removeIndex = indexSet.iterator().next();
+        indexSet.remove(removeIndex);
         int lastVal = list.get(list.size() - 1);
  
         list.set(removeIndex, lastVal);
             
-        List<Integer> lastValIndex = map.get(lastVal);
-        for (int i = 0; i < lastValIndex.size(); i++) {
-            if (lastValIndex.get(i) == (list.size() - 1)) {
-                lastValIndex.remove(i);
-                lastValIndex.add(removeIndex);
-                break;
-            }
+        Set<Integer> lastValIndex = map.get(lastVal);
+        if(removeIndex != list.size() - 1) {
+            lastValIndex.remove(list.size() - 1);
+            lastValIndex.add(removeIndex);
         }
-        if (indexList.size() == 0) {
+        if (indexSet.size() == 0) {
             map.remove(val);
         }
         list.remove(list.size() - 1);
