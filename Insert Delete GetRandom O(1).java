@@ -33,17 +33,15 @@ Show Company Tags
 Show Tags
 
 */
-import java.util.Random;
-public class RandomizedSet {
+class RandomizedSet {
 
+    int size = 0;
+    Map<Integer, Integer> map = new HashMap<>();
+    List<Integer> list = new ArrayList<>();
 
-    private Map<Integer, Integer> map;
-    private List<Integer> list;
-    private int length = 0;
     /** Initialize your data structure here. */
     public RandomizedSet() {
-        map = new HashMap<>();
-        list = new ArrayList<>();
+        
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
@@ -51,14 +49,9 @@ public class RandomizedSet {
         if (map.containsKey(val)) {
             return false;
         }
-        map.put(val, length);
-        if (length == list.size()) {
-            list.add(val);
-        }
-        else {
-            list.set(length, val);
-        }
-        length++;
+        list.add(val);
+        map.put(val, size);
+        size++;
         return true;
     }
     
@@ -67,19 +60,21 @@ public class RandomizedSet {
         if (!map.containsKey(val)) {
             return false;
         }
-        int index = map.get(val);
-        list.set(index, list.get(length - 1));
-        map.put(list.get(length - 1), index);
-        length--;
+        int curIndex = map.get(val);
+        int lastVal = list.get(size - 1);
+        list.set(curIndex, lastVal);
+        list.remove(size - 1);
+        map.put(lastVal, curIndex);
         map.remove(val);
+        size--;
         return true;
     }
     
     /** Get a random element from the set. */
     public int getRandom() {
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(length);
-        return list.get(randomIndex);
+        Random random = new Random();
+        int index = random.nextInt(size);
+        return list.get(index);
     }
 }
 
