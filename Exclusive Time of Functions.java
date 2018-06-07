@@ -60,3 +60,31 @@ class Solution {
         return count;
     }
 }
+
+// better understand 
+class Solution {
+    public int[] exclusiveTime(int n, List<String> logs) {
+        if (logs == null || n < 0 || logs.size() == 0) {
+            return new int[0];
+        }   
+        int[] ids = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> startStack = new Stack<>();
+        for (String log : logs) {
+            String[] strs = log.split(":");
+            if (strs[1].equals("start")) {
+                stack.push(Integer.valueOf(strs[0]));
+                startStack.push(Integer.valueOf(strs[2]));
+            } else {
+                int topId = stack.pop();
+                int startTime = startStack.pop();
+                int time = Integer.valueOf(strs[2]) - startTime + 1;
+                ids[topId] += time;
+                if (!stack.isEmpty()) {
+                    ids[stack.peek()] -= time;
+                }
+            }
+        }
+        return ids;
+    }
+}
