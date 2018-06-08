@@ -33,6 +33,37 @@ output:
   [4, 8]
 ]
 */
+// Better solution
+
+class Solution {
+    public List<List<Integer>> getFactors(int n) {
+        List<List<Integer>> results = new ArrayList<>();
+        if (n <= 0) {
+            return results;
+        }
+        List<Integer> oneResult = new ArrayList<>();
+        dfsCore(n, results, oneResult, 2);
+        return results;
+    }
+    
+    private void dfsCore(int n, List<List<Integer>> results, List<Integer> oneResult, int start) {
+        if (n == 1) {
+            if (oneResult.size() > 1) {
+                results.add(new ArrayList<>(oneResult));
+            }
+            return;
+        }
+        for (int i = start; i <= n; i++) {
+            if (n % i == 0) {
+                oneResult.add(i);
+                dfsCore(n / i, results, oneResult, i);
+                oneResult.remove(oneResult.size() - 1);
+            }
+        }  
+    }
+}
+
+
 public class Solution {
     public List<List<Integer>> getFactors(int n) {
         List<List<Integer>> result = new ArrayList<>();
