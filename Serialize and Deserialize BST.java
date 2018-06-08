@@ -18,6 +18,60 @@ Note: Do not use class member/global/static variables to store states. Your seri
  *     TreeNode(int x) { val = x; }
  * }
  */
+// better one
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        if (root == null) {
+            return sb.toString();
+        }
+        dfsCore(root, sb);
+        sb.setLength(sb.length() - 1);
+        return sb.toString();
+    }
+    
+    private void dfsCore(TreeNode pNode, StringBuilder sb) {
+        if (pNode == null) {
+            return;
+        }
+        sb.append(pNode.val);
+        sb.append("#");
+        dfsCore(pNode.left, sb);
+        dfsCore(pNode.right, sb);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data.length() == 0) {
+            return null;
+        }
+        String[] strs = data.split("#");
+        TreeNode pNode = dfsCreateTree(strs, 0, strs.length - 1);
+        return pNode;
+    }
+    
+    private TreeNode dfsCreateTree(String[] strs, int startIndex, int endIndex) {
+        if (startIndex > endIndex) {
+            return null;
+        }
+        TreeNode pNode = new TreeNode(Integer.valueOf(strs[startIndex]));
+        int lastSmallerIndex = startIndex;
+        for (int i = startIndex + 1; i <= endIndex; i++) {
+            if (Long.valueOf(strs[i]) <= pNode.val) {
+                lastSmallerIndex = i;
+            } else {
+                break;
+            }
+        }
+        pNode.left = dfsCreateTree(strs, startIndex + 1, lastSmallerIndex);
+        pNode.right = dfsCreateTree(strs, lastSmallerIndex + 1, endIndex);
+        return pNode;
+    }
+}
+
+//
 public class Codec {
 
     // Encodes a tree to a single string.
