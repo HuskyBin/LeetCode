@@ -3,6 +3,43 @@ A linked list is given such that each node contains an additional random pointer
 
 Return a deep copy of the list.
 */
+// beeter
+
+/**
+ * Definition for singly-linked list with a random pointer.
+ * class RandomListNode {
+ *     int label;
+ *     RandomListNode next, random;
+ *     RandomListNode(int x) { this.label = x; }
+ * };
+ */
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+        Map<Integer, RandomListNode> copyMap = new HashMap<>();
+        RandomListNode pNode = head;
+        RandomListNode preNode = null;
+        while (pNode != null) {
+            RandomListNode copyNode = copyMap.getOrDefault(pNode.label, new RandomListNode(pNode.label));
+            copyMap.putIfAbsent(pNode.label, copyNode);
+            if (preNode != null) {
+                copyMap.get(preNode.label).next = copyNode;
+            }
+            if (pNode.random != null) {
+                RandomListNode copyRandomNode = copyMap.getOrDefault(pNode.random.label, new RandomListNode(pNode.random.label));
+                copyMap.putIfAbsent(pNode.random.label, copyRandomNode);
+                copyNode.random = copyRandomNode;
+            }
+            preNode = pNode;
+            pNode = pNode.next;
+        }
+        return copyMap.get(head.label);
+    }
+}
+
+
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
         if (head == null) {
