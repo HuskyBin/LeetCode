@@ -31,6 +31,51 @@ Subscribe to see which companies asked this question
  *     TreeNode(int x) { val = x; }
  * }
  */
+/*
+Better
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int rob(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        
+        Node node = dfsCore(root);
+        return Math.max(node.first, node.second);
+    }
+    
+    private Node dfsCore(TreeNode pNode) {
+        if (pNode == null) {
+            return new Node(0, 0);
+        }
+        Node left = dfsCore(pNode.left);
+        Node right = dfsCore(pNode.right);
+        int maxFirst = left.second + right.second + pNode.val;
+        int maxSecond = Math.max(right.first, right.second) + Math.max(left.first, left.second);
+        return new Node(maxFirst, maxSecond);
+    }
+}
+
+class Node {
+    int first;
+    int second;
+    
+    public Node(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+}
+
+
 public class Solution {
     public int rob(TreeNode root) {
         if (root == null) {
