@@ -48,12 +48,16 @@ public class Solution {
             
             if (firstInterval.start > secondInterval.end) {
                 secondIndex++;
-            } else if (secondInterval.start >= firstInterval.end) {
+            } else if (secondInterval.start > firstInterval.end) {
                 firstIndex++;
             } else {
                 final int start = Math.max(firstInterval.start, secondInterval.start);
                 final int end = Math.min(firstInterval.end, secondInterval.end);
-                results.add(new Interval(start, end));
+                if (results.size() > 0 && results.get(results.size() - 1).end + 1 == start) {
+                    results.get(results.size() - 1).end = end;
+                } else {
+                    results.add(new Interval(start, end));
+                }
                 if (firstInterval.end <= secondInterval.end) {
                     firstIndex++;
                 } else {
@@ -67,11 +71,12 @@ public class Solution {
 
     
     public static class Interval {
-        public final int start;
-        public final int end;
+        public int start;
+        public int end;
         public Interval(int start, int end) {
             this.start = start;
             this.end = end;
         }
     }    
 }
+
