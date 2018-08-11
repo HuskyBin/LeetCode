@@ -69,6 +69,57 @@ Then we can easily have our solution as we always keep track of the left and rig
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+// Better solution DFS
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<String>> printTree(TreeNode root) {
+        List<List<String>> results = new ArrayList<>();
+        if (root == null) {
+            return results;
+        }
+        int height = getHeight(root);
+        int width = (int)Math.pow(2, height) - 1;
+        for (int i = 0; i < height; i++) {
+            List<String> oneLine = new ArrayList<>();
+            for (int j = 0; j < width; j++) {
+                oneLine.add("");
+            }
+            results.add(oneLine);
+        }
+        
+        dfsCore(root, 0, width - 1, 0, height, results);
+        return results;
+    }
+    
+    private void dfsCore(TreeNode pNode, int start, int end, int curHeight, int height, List<List<String>> results) {
+        if (pNode == null || curHeight == height) {
+            return;
+        }
+        int mid = start + (end - start) / 2;
+        results.get(curHeight).set(mid, String.valueOf(pNode.val));
+        dfsCore(pNode.left, start, mid, curHeight + 1, height, results);
+        dfsCore(pNode.right, mid + 1, end, curHeight + 1, height, results);
+    }
+    
+    private int getHeight(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+    }
+}
+
+
+
 class Solution {
     public List<List<String>> printTree(TreeNode root) {
         List<List<String>> result = new ArrayList<>();
