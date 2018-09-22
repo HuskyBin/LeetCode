@@ -26,15 +26,28 @@ It is guaranteed an answer exists. If there exists multiple answers, you can ret
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
     public TreeNode constructFromPrePost(int[] pre, int[] post) {
         if (pre == null || post == null) {
             return null;
         }
-        return dfsCore(pre, post, 0, pre.length - 1, 0, post.length - 1);
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < post.length; i++) {
+            indexMap.put(post[i], i);
+        }
+        return dfsCore(pre, post, 0, pre.length - 1, 0, post.length - 1, indexMap);
     }
     
-    private TreeNode dfsCore(int[] pre, int[] post, int preStart, int preEnd, int postStart, int postEnd) {
+    private TreeNode dfsCore(int[] pre, int[] post, int preStart, int preEnd, int postStart, int postEnd, Map<Integer, Integer> map) {
         if (preStart > preEnd || postStart > postEnd) {
             return null;
         }
@@ -42,19 +55,11 @@ class Solution {
         if (preStart == preEnd) {
             return node;
         }
-        int leftIndex = findLeftIndex(pre, post, preStart + 1, preEnd, postStart, postEnd);
+        int index = map.get(pre[preStart + 1]);
+        int leftIndex = index - postStart + 1;
         node.left = dfsCore(pre, post, preStart + 1, preStart + leftIndex,
-                           postStart, postStart + leftIndex - 1);
-        node.right = dfsCore(pre, post, preStart + 1 + leftIndex, preEnd, postStart + leftIndex, postEnd - 1);
+                           postStart, postStart + leftIndex - 1, map);
+        node.right = dfsCore(pre, post, preStart + 1 + leftIndex, preEnd, postStart + leftIndex, postEnd - 1, map);
         return node;
-    }
-    
-    private int findLeftIndex(int[] pre, int[] post, int preStart, int preEnd, int postStart, int postEnd) {
-        int num = pre[preStart];
-        int index = postStart;
-        while (index <= postEnd && post[index] != num) {
-            index++;
-        }
-        return index - postStart + 1;
     }
 }
